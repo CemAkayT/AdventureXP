@@ -16,9 +16,8 @@ import java.util.Set;
 @RestController
 public class UserController {
 
-    private UserService uService;
+   /* private UserService uService;
 
-    private Model model;
 
     public UserController(UserService uService){
         this.uService = uService;
@@ -29,27 +28,14 @@ public class UserController {
     return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
     }
 
-    //Add user and save in DB
-/*    @PostMapping("/adduser")
-    public ResponseEntity<Set<User>>addUser(User name){
-        uService.save(name);
-    return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
-    }*/
+
     @PostMapping("/adduser")
-    public String addUser(User user, BindingResult result, Model model){
-        if (result.hasErrors()){
-            return "adduser";
-        }
-        uService.save(user);
-        return "redirect:/index";
-    }
-    @GetMapping("/index")
-    public String showUserList(Model model) {
-        model.addAttribute("users", uService.findAll());
-        return "index";
+    public ResponseEntity<Set<User>>addUser(User name) {
+        uService.save(name);
+        return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
     }
 
-    @DeleteMapping("/deleteuser")
+   @DeleteMapping("/deleteuser")
     public ResponseEntity<Set<User>> deleteUserById(User id){
         uService.delete(id);
         return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
@@ -63,7 +49,7 @@ public class UserController {
         uService.save(userUpdate);
         return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
     }
-
+*/
 
 
 
