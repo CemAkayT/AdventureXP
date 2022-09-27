@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 public class UserControllerHTML {
 
@@ -21,16 +24,15 @@ public class UserControllerHTML {
     }
 
     @PostMapping("/adduser")
-    public String addUser(User user, BindingResult result, Model model){
-        if (result.hasErrors()){
-            return "add-user";
-        }
+    public String addUser(User user, Model model){
         uService.save(user);
-        return "redirect:/index";
-    }
+        model.addAttribute("user", user);
+            return "redirect:/index";
+        }
     @GetMapping("/index")
     public String showUserList(Model model) {
-        model.addAttribute("users", uService.findAll());
+        Set<User> users = new HashSet<>(uService.findAll());
+        model.addAttribute("users", users);
         return "index";
     }
     @GetMapping("/edit/{id}")
