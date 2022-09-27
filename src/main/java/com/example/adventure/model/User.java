@@ -15,12 +15,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
-    public User() {
-    }
-
     @Column
     public String name;
+  /*  public User() {
+    //}
 
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }*/
 }
