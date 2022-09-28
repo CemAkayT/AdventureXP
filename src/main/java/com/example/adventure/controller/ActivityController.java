@@ -11,15 +11,15 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
+@RequestMapping("/api/v1/activity")
 public class ActivityController {
-        //hej hej ehj
     ActivityJPA activityJPA;
 
     public ActivityController(ActivityJPA activityJPA) {
         this.activityJPA = activityJPA;
     }
 
-    @PostMapping("/saveActivity")
+    @PostMapping
     public ResponseEntity<?> saveActivity(@RequestBody Activity activity){
         Activity savedActivity = activityJPA.save(activity);
         if (savedActivity == null){
@@ -29,14 +29,14 @@ public class ActivityController {
         }
     }
 
-    @GetMapping("/findAllActivities")
+    @GetMapping
     public ResponseEntity<Set<Activity>> getAllActivities(){
         Set allActivities = activityJPA.findAll();
         return new ResponseEntity<>(allActivities, HttpStatus.OK);
     }
 
-    @PutMapping("/updateActivity")
-    public ResponseEntity<?> updateActivity(@RequestBody Activity activity){
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateActivity(@PathVariable Activity activity){
         Optional<Activity> activityToUpdate = activityJPA.findById(activity.getId());
         if (activityToUpdate.isPresent()) {
             Activity savedActivity = activityJPA.save(activity);
@@ -50,9 +50,10 @@ public class ActivityController {
         }
     }
 
-    @DeleteMapping("/deleteActivity/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteActivity(@PathVariable Long id){
         activityJPA.deleteById(id);
         return new ResponseEntity<>("Aktivitet med id " + id + " blev slettet", HttpStatus.OK);
     }
+
 }

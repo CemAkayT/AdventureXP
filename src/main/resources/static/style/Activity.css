@@ -1,0 +1,41 @@
+.overview-btn{
+    color: aliceblue;
+    align-content: center;
+    font-family: "Arial Black";
+    font-size: xxx-large;
+    text-align: center;
+    display: grid;
+    gap: 1px;
+}
+
+.edit-btn{
+    color: aliceblue;
+    align-content: center;
+    font-family: "Arial";
+    font-size: small;
+    text-align: center;
+    display: grid;
+    gap: 50px;
+}
+
+.Info-box{
+    display: inline-block;
+    font-family: Arial;
+    align-items: start;
+    justify-content: space-between;
+    margin-left: 2%;
+
+}
+
+h1{
+    text-align: center;
+}
+
+h2{
+    font-size: medium;
+    inset-inline: auto;
+}
+
+h3{
+    font-size: small;
+}

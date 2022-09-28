@@ -20,10 +20,11 @@ public class Activity {
     private String description;
     private int price;
 
+
     @ManyToOne
     @JsonBackReference
     @EqualsAndHashCode.Exclude
-    private Requirements requirements;
+    private Requirement requirement;
 
 
 

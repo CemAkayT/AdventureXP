@@ -1,8 +1,7 @@
 package com.example.adventure.service;
 
-import com.example.adventure.model.Requirements;
-import com.example.adventure.model.User;
-import com.example.adventure.repository.RequirementsRepository;
+import com.example.adventure.model.Requirement;
+import com.example.adventure.repository.RequirementRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -10,28 +9,28 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class RequirementsJPA implements RequirementsService{
+public class RequirementJPA implements RequirementService {
 
-    public final RequirementsRepository requirementsRepository;
+    public final RequirementRepository requirementsRepository;
 
-    public RequirementsJPA(RequirementsRepository requirementsRepository) {
+    public RequirementJPA(RequirementRepository requirementsRepository) {
         this.requirementsRepository = requirementsRepository;
     }
 
     @Override
-    public Set<Requirements> findAll() {
-        Set<Requirements> set = new HashSet<>();
+    public Set<Requirement> findAll() {
+        Set<Requirement> set = new HashSet<>();
         requirementsRepository.findAll().forEach(set::add);
         return set;
     }
 
     @Override
-    public Requirements save(Requirements object) {
+    public Requirement save(Requirement object) {
         return requirementsRepository.save(object);
     }
 
     @Override
-    public void delete(Requirements object) {
+    public void delete(Requirement object) {
         requirementsRepository.delete(object);
 
     }
@@ -42,7 +41,7 @@ public class RequirementsJPA implements RequirementsService{
     }
 
     @Override
-    public Optional<Requirements> findById(Long aLong) {
+    public Optional<Requirement> findById(Long aLong) {
         return requirementsRepository.findById(aLong);
     }
 }

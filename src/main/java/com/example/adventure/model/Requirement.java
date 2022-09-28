@@ -2,23 +2,23 @@ package com.example.adventure.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Setter
 @Getter
+@ToString
 @Table(name = "Requirements")
 // Alt udkommenteret kode er til senere udvidelse af db
 //@SecondaryTable(name = "Req_age", pkJoinColumns = @PrimaryKeyJoinColumn(name = "req_id"))
 //@SecondaryTable(name = "Req_height", pkJoinColumns = @PrimaryKeyJoinColumn(name = "req_id"))
 //@SecondaryTable(name = "Req_attendants", pkJoinColumns = @PrimaryKeyJoinColumn(name = "req_id"))
-public class Requirements {
+public class Requirement {
 
 
     @Id
@@ -59,7 +59,7 @@ public class Requirements {
     private Set<Activity> activities = new HashSet<>();
 
 
-    public Requirements() {
+    public Requirement() {
         super();
     }
 }

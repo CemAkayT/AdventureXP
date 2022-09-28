@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Krav Liste</title>
+    <link rel="stylesheet" th:href="@{../stylesheets/temp.css}" href="../stylesheets/temp.css">
+</head>
+
+<body>
+
+<span th:if="${requirement.getAlcoholLevel() != 99 }">Maks. Promille: <span th:text="${requirement.getAlcoholLevel()}"></span>%</br></span>
+<span th:if="${requirement.getMaximumAttendants() != 0}">Højeste antal deltagere: <span th:text="${requirement.getMaximumAttendants()}"></span></br></span>
+<span th:if="${requirement.getMinimumAttendants() != 0}"> Mindste antal deltagere: <span th:text="${requirement.getMinimumAttendants()}"></span></br></span>
+<span th:if="${requirement.getMaxWeight() != 0}"> Maksimal vægt: <span th:text="${requirement.getMaxWeight()}"></span></br></span>
+<span th:if="${requirement.getMaximumHeight() !=0}"> Maksimal højde: <span th:text="${requirement.getMaximumHeight()}"></span></br></span>
+<span th:if="${requirement.getMinimumHeight() != 0}">Minimums højde: <span th:text="${requirement.getMinimumHeight()}"></span></br></span>
+<span th:if="${requirement.getMaximumAge() != 0}">Maksimal alder: <span th:text="${requirement.getMaximumAge()}"></span></br></span>
+<span th:if="${requirement.getMinimumAge() != 0}">Minimums alder: <span th:text="${requirement.getMinimumAge()}"></span></br></span>
+<span th:if="${requirement.getRequirementsDescrip() != null}">Yderligere hensyn: <span th:text="${requirement.getRequirementsDescrip()}"></br></span></span>
+
+
+
+</body>
+</html>
