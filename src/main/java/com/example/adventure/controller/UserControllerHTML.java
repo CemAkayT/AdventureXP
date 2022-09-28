@@ -5,7 +5,6 @@ import com.example.adventure.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -32,32 +31,32 @@ public class UserControllerHTML {
     public String addUser(@ModelAttribute("user") User user, Model model){
        uService.save(user);
         model.addAttribute("user", user);
-            return "redirect:/index";
+            return "redirect:/user-frontpage";
         }
-    @GetMapping("/index")
+    @GetMapping("/user-frontpage")
     public String showUserList(Model model) {
         Set<User> users = new HashSet<>(uService.findAll());
         model.addAttribute("users", users);
-        return "index";
+        return "user-frontpage";
     }
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        User user = uService.findById(id)
+       User user = uService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
         model.addAttribute("user", user);
         return "update-user";
     }
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, User user,
+    public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
             user.setId(id);
+            model.addAttribute("user", user);
             return "update-user";
         }
-
         uService.save(user);
-        return "redirect:/index";
+        return "redirect:/user-frontpage";
     }
 
     @GetMapping("/delete/{id}")
@@ -65,7 +64,7 @@ public class UserControllerHTML {
         User user = uService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         uService.delete(user);
-        return "redirect:/index";
+        return "redirect:/user-frontpage";
     }
 
 }

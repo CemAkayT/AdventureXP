@@ -6,9 +6,6 @@
 </head>
 <body>
 <form action="/save-user" th:action="@{/save-user}" th:object="${user}" method="post">
-    <!-- <label for="name">Name</label>
-
-   <input type="text" th:field="*{name}" id="name" placeholder="name" name="name"> -->
     <input type="text" th:field="*{name}" /><br/>
     <input type="submit" value="Add User">
 </form>
