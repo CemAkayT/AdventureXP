@@ -26,7 +26,7 @@ public class UserController {
 
     //Add user and save in DB
     @PostMapping
-    public ResponseEntity<Set<User>>addUser(User name){
+    public ResponseEntity<Set<User>>addUser(@RequestBody User name){
         uService.save(name);
     return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
     }
