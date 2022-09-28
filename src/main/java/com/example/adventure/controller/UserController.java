@@ -1,71 +1,55 @@
 package com.example.adventure.controller;
 
+import com.example.adventure.exception.ResourceNotFoundException;
 import com.example.adventure.model.User;
 import com.example.adventure.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Controller
+@RestController
 public class UserController {
 
     private UserService uService;
 
-    public UserController(UserService uService){
+    private Model model;
+
+    public UserController(UserService uService) {
         this.uService = uService;
     }
 
-    @GetMapping("/add-user")
-    public String addUser(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "/add-user";
+    //Show all users in DB
+    @GetMapping("/users")
+    public ResponseEntity<Set<User>> getUsers() {
+        return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
+    }
+
+    //Add user and save in DB
+   @PostMapping("/adduser")
+    public ResponseEntity<Set<User>>addUser(User name){
+        uService.save(name);
+    return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
     }
 
 
-    @PostMapping("/save-user")
-    public String addUser(@ModelAttribute("user") User user, Model model){
-       uService.save(user);
-        model.addAttribute("user", user);
-            return "redirect:/user-frontpage";
-        }
-    @GetMapping("/user-frontpage")
-    public String showUserList(Model model) {
-        Set<User> users = new HashSet<>(uService.findAll());
-        model.addAttribute("users", users);
-        return "user-frontpage";
-    }
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-       User user = uService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    @DeleteMapping("/deleteuser")
+    public ResponseEntity<Set<User>> deleteUserById(User id) {
+        uService.delete(id);
+        return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
 
-        model.addAttribute("user", user);
-        return "update-user";
-    }
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, @ModelAttribute("user") User user,
-                             BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            user.setId(id);
-            model.addAttribute("user", user);
-            return "update-user";
-        }
-        uService.save(user);
-        return "redirect:/user-frontpage";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = uService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        uService.delete(user);
-        return "redirect:/user-frontpage";
+    @PatchMapping("/updateuser")
+    public ResponseEntity<Set<User>> updateUser(Long id, User name) {
+        User userUpdate = uService.findById(id).orElseThrow(() -> new ResourceNotFoundException("No one exists with this id: " + id));
+        userUpdate.setName(name.getName());
+        uService.save(userUpdate);
+        return new ResponseEntity<>(uService.findAll(), HttpStatus.OK);
     }
-
 }
-
