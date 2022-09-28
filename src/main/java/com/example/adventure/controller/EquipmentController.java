@@ -12,7 +12,7 @@ import java.util.Set;
 
 @RestController
 public class EquipmentController {
-    private EquipmentService equipmentService;
+/*    private EquipmentService equipmentService;
 
     public EquipmentController(EquipmentService equipmentService){
         this.equipmentService = equipmentService;
@@ -38,5 +38,5 @@ public class EquipmentController {
         equipmentUpdate.setName(name.getName());
         equipmentService.save(equipmentUpdate);
         return new ResponseEntity<>(equipmentService.findAll(), HttpStatus.OK);
-    }
+    }*/
 }
