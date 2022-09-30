@@ -26,6 +26,30 @@ public class Event {
 
 	String color;
 
+	String employee;
+
+	String type;
+
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public String getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(String employee) {
+		this.employee = employee;
+	}
+
+
 	public Long getId() {
 		return id;
 	}

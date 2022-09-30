@@ -62,7 +62,9 @@ public class CalendarController {
 
         Event e = er.findById(params.id).get();
         System.out.println(params.text);
-        e.setText(params.text);
+        e.setEmployee(params.employee);
+        e.setType(params.type);
+        e.setText(params.text + "\n" + params.type + "\n" + params.employee);
 
         er.save(e);
 
@@ -114,6 +116,8 @@ public class CalendarController {
         public Long id;
         public String text;
         public Long resource;
+        public String employee;
+        public String type;
     }
 
     public static class SetColorParams {
