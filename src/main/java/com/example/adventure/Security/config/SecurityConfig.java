@@ -26,6 +26,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    // basic authorization. Virker i backenden, men ikke med frontenden
+    /*@Override
+
+    @Configuration
+    @EnableWebSecurity
+    public class SecurityConfig extends WebSecurityConfigurerAdapter{
+    auth.inMemoryAuthentication()
+    .withUser("admin")
+    .password("admin")
+    .roles("admin_role");
+    }
+     */
+
+    //    protected void configure(HttpSecurity http) throws Exception{
+//        httpBasic()
+//        .and()
+//        .authorizeRequests()
+//        .antMatchers("/api/v1/**).hasRole("admin_role")
+//        .and()
+//        .formLogin();
+//        }
     @Autowired
     UserDetailsServiceImpl userDetailsService;
     @Autowired
@@ -63,7 +84,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/v1/**").hasRole("ADMIN")
-                .antMatchers("/api/v1/**").permitAll()
+                .antMatchers("/api/v1/**" +
+                        "").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
