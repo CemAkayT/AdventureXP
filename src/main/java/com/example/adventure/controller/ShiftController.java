@@ -1,16 +1,21 @@
 package com.example.adventure.controller;
 
-import com.example.adventure.model.*;
+import com.example.adventure.model.DateDto;
+import com.example.adventure.model.Shift;
+import com.example.adventure.model.ShiftAndActivityRequest;
+import com.example.adventure.model.ShiftAndActivityResponse;
 import com.example.adventure.service.ActivityService;
 import com.example.adventure.service.ShiftService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/shift")
@@ -32,11 +37,6 @@ public class ShiftController {
         return new ResponseEntity<>(shiftService.findAll(), HttpStatus.OK);
     }
 
-    /**
-     * Get a shift by Id
-     * @param id
-     * @return
-     */
     @PermitAll
     @GetMapping("/{id}")
     @CrossOrigin

@@ -1,5 +1,10 @@
-package com.example.adventure.payload.request;
-
+//package com.example.adventure.payload.request;
+//
+//import javax.validation.constraints.Email;
+//import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.Size;
+//import java.util.Set;
+//
 //public class SignupRequest {
 //    @NotBlank
 //    @Size(min = 3, max = 20)
@@ -57,6 +62,6 @@ package com.example.adventure.payload.request;
 //    public void setRole(Set<String> role) {
 //        this.role = role;
 //    }
-
+//
 //
 //}

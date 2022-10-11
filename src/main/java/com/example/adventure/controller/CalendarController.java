@@ -1,18 +1,13 @@
 package com.example.adventure.controller;
 
-import com.example.adventure.model.Activity;
 import com.example.adventure.model.Event;
-import com.example.adventure.repository.ActivityRepository;
 import com.example.adventure.repository.EventRepository;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.PermitAll;
 import javax.transaction.Transactional;
@@ -23,8 +18,6 @@ public class CalendarController {
 
     @Autowired
     EventRepository er;
-    @Autowired
-    ActivityRepository ar;
 
 @PermitAll
 @CrossOrigin
@@ -40,12 +33,11 @@ public class CalendarController {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @Transactional
     Event createEvent(@RequestBody EventCreateParams params) {
-        System.out.println("test");
+
         Event e = new Event();
         e.setStart(params.start);
         e.setEnd(params.end);
         e.setText(params.text);
-
 
         er.save(e);
 
@@ -71,14 +63,9 @@ public class CalendarController {
     @Transactional
     Event updateEvent(@RequestBody EventUpdateParams params) {
 
-        System.out.println(params);
         Event e = er.findById(params.id).get();
         System.out.println(params.text);
         e.setText(params.text);
-        e.setMedarbejder(params.medarbejder);
-        e.setActivity(ar.findById(params.activityId).get());
-
-
 
         er.save(e);
 
@@ -132,8 +119,6 @@ public class CalendarController {
         public Long id;
         public String text;
         public Long resource;
-        public String medarbejder;
-        public Long activityId;
     }
 
     public static class SetColorParams {
